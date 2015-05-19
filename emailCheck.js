@@ -1,7 +1,7 @@
 var path           = require('path')
   , csv            = require('csv')
   , fs             = require('fs')
-  , crypto         = require('crypto');
+  , emailvalidator = require("email-validator");
 
 var myConfig = require('./config');
 
@@ -12,9 +12,11 @@ var parser = csv.parse({delimiter: ';', columns: true});
 
 var transformer = csv.transform(function(data, callback){
   setImmediate(function(){
-    var shasum = crypto.createHash('sha1');
-    shasum.update(myConfig.salt + data[myConfig.fieldNames.toSha1]);
-    data[myConfig.fieldNames.sha1] = shasum.digest('hex');
+  	var valid = (emailvalidator.validate(data[myConfig.fieldNames.email])) ? "1" : "0";
+  	if (!emailvalidator.validate(data[myConfig.fieldNames.email])) {
+  		console.log("Inválido!");
+  	}
+  	data[myConfig.fieldNames.result] = valid;
     callback(null, data);
   });
 }, { parallel: 20 });

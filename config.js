@@ -2,11 +2,11 @@
 // ========
 
 module.exports = {
-  "from" : "test.csv",
-  "to": "testwtoken.csv",
+  "from" : "201505bbdd-3.csv",
+  "to": "201505bbdd-3-result.csv",
   "fieldNames" : {
-    "toSha1" : "id",
-    "sha1" : "token"
+    "email" : "email",
+    "result" : "result"
   },
   "salt" : "3NT0UR4G3!"
 };
